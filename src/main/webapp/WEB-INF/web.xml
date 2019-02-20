@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	
+	<!--读取配置文件-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationcontext.xml</param-value>
+	</context-param>
+	<!--Spring监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<filter>
+  	<filter-name>encodingfilter</filter-name>
+  	<filter-class>com.zs.cms.filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>encodingfilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!--请求过滤  两个url-pattern-->
+
+  <!--配置kaptcha验证码-->
+  <servlet>
+  	<servlet-name>Kaptcha</servlet-name>
+  	<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+  	<init-param>
+		<!-- 图片宽 -->
+			<param-name>kaptcha.image.width</param-name>
+			<param-value>80</param-value>
+		</init-param>
+		 <init-param>
+		 <!-- 边框 -->
+			  <param-name>kaptcha.border</param-name>
+			  <param-value>no</param-value> 
+		</init-param>
+		  <init-param>
+		   <!-- 图片高 -->
+			<param-name>kaptcha.image.height</param-name>
+			<param-value>30</param-value>
+		</init-param>
+			<init-param>
+			 <!-- 字体 -->
+			<param-name>kaptcha.textproducer.font.size</param-name>
+			<param-value>28</param-value>
+		</init-param>
+		<init-param> <!-- 水纹样式 -->
+			 <param-name>kaptcha.noise.impl</param-name>  
+        	<param-value>com.google.code.kaptcha.impl.NoNoise</param-value> 
+		</init-param>
+		<init-param>
+			<!-- 验证码长度 -->
+			<param-name>kaptcha.textproducer.char.length</param-name>
+			<param-value>2</param-value>
+		</init-param>	
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Kaptcha</servlet-name>
+  	<url-pattern>/kaptcha.jpg</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!--新增-->
+  <servlet>
+  	<servlet-name>useradd</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>useradd</servlet-name>
+  	<url-pattern>/user/useradd.do</url-pattern>
+  </servlet-mapping>
+  
+
+  
+  <!--检测登录名-->
+  <servlet>
+  	<servlet-name>userchkName</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.ChkLoginnameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>userchkName</servlet-name>
+  	<url-pattern>/user/userchkName.do</url-pattern> <!--http://localhost:8080/201702cms/userchkName.do-->
+  </servlet-mapping>
+  
+  
+  
+   <!--检测登录名-->
+  <servlet>
+  	<servlet-name>getDep</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.GetDeptServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>getDep</servlet-name>
+  	<url-pattern>/user/getDep.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  <!--列表-->
+  <servlet>
+  	<servlet-name>userlist</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>userlist</servlet-name>
+  		<url-pattern>/user/userlist.do</url-pattern>
+  </servlet-mapping>
+  <!--获得一个用户-->
+    <servlet>
+  	<servlet-name>userget</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserGetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>userget</servlet-name>
+  		<url-pattern>/user/userget.do</url-pattern>
+  </servlet-mapping>
+  
+    <!--修改-->
+    <servlet>
+  	<servlet-name>userupdate</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>userupdate</servlet-name>
+  		<url-pattern>/user/userupdate.do</url-pattern>
+  </servlet-mapping>
+  
+    <!--删除-->
+    <servlet>
+  	<servlet-name>userdelete</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>userdelete</servlet-name>
+  		<url-pattern>/user/userdelete.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>login</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>login</servlet-name>
+  	<url-pattern>/login.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>logoff</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.LoginServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>logoff</servlet-name>
+  	<url-pattern>/logoff.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+  	<servlet-name>init</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.UserInitServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>init</servlet-name>
+  	<url-pattern>/user/init.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>hello</servlet-name>
+  	<servlet-class>com.zs.cms.servlet.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>hello</servlet-name>
+  	<url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+  
+  
+	
+	
+</web-app>
